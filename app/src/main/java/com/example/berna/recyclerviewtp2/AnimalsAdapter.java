@@ -30,6 +30,11 @@ public class AnimalsAdapter extends RecyclerView.Adapter<AnimalsAdapter.ViewHold
     private List<String> mDataSet;
     private Context mContext;
     private Random mRandom = new Random();
+    private ItemClickListener callback;
+
+    public AnimalsAdapter(Context context, List<String> data, ItemClickListener callback) {
+        this.callback = callback;
+    }
 
     public AnimalsAdapter(Context context,List<String> list){
         mDataSet = list;
@@ -75,14 +80,17 @@ public class AnimalsAdapter extends RecyclerView.Adapter<AnimalsAdapter.ViewHold
         applyEmbossMaskFilter(holder.mTextView);
 
         // Set a click listener for TextView
-        holder.mTextView.setOnClickListener(new View.OnClickListener() {
+        /*holder.mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new MainActivity().changeFragment(view);
                 //String animal = mDataSet.get(position);
                 //Toast.makeText(mContext,animal,Toast.LENGTH_SHORT).show();
             }
-        });
+        }
+        );*/
+
+        holder.mTextView.setOnClickListener(callback::onItemClick);
 
         // Set a click listener for item remove button
         holder.mRemoveButton.setOnClickListener(new View.OnClickListener() {

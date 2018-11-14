@@ -3,7 +3,6 @@ package com.example.berna.recyclerviewtp2;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.berna.recyclerviewtp2.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +23,7 @@ import android.support.v4.app.Fragment;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ItemClickListener{
     private Context mContext;
 
     RelativeLayout mRelativeLayout;
@@ -86,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // Initialize a new instance of RecyclerView Adapter instance
-        mAdapter = new AnimalsAdapter(mContext, animalsList);
+        mAdapter = new AnimalsAdapter(mContext, animalsList, this);
 
         // Set the adapter for RecyclerView
         mRecyclerView.setAdapter(mAdapter);
@@ -135,6 +131,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(mContext, "Added : " + itemLabel, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onItemClick(View view) {
+        changeFragment(view);
     }
 
     public void changeFragment(View view){
